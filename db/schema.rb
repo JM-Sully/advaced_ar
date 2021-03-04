@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_152138) do
+ActiveRecord::Schema.define(version: 2021_03_04_121052) do
+
+  create_table "jobs", force: :cascade do |t|
+    t.string "title"
+    t.string "company"
+    t.string "position_id"
+    t.integer "person_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_jobs_on_person_id"
+  end
 
   create_table "people", force: :cascade do |t|
     t.string "first_name"
@@ -22,4 +32,15 @@ ActiveRecord::Schema.define(version: 2021_03_03_152138) do
     t.string "pass"
   end
 
+  create_table "personal_infos", force: :cascade do |t|
+    t.float "height"
+    t.float "weight"
+    t.integer "person_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["person_id"], name: "index_personal_infos_on_person_id"
+  end
+
+  add_foreign_key "jobs", "people"
+  add_foreign_key "personal_infos", "people"
 end
